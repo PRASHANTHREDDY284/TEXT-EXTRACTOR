@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Result</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='3d-background-with-white-cubes.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #3498db;
+            position: relative;
+        }
+
+        #title-container {
+            background-color: #ffffff38;
+            color: #0e0f10;
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #3498db;
+        }
+
+        #message-container {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            color: #000;
+            font-size: 18px;
+            overflow: auto;
+            max-height: 150px;
+        }
+
+        .result-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            box-sizing: border-box;
+            overflow: auto;
+            max-height: 300px;
+        }
+
+        .result-content {
+            /* Additional styles for result content */
+            color: #0e0f10; /* Text color for the result content */
+            white-space: pre-line; /* Preserve whitespace and line breaks */
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        a.button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block; /* Display as inline block to remove underline */
+        }
+    </style>
+</head>
+<body>
+<div id="page-container">
+    <div id="title-container">
+        <h1><span style="color: black;">OCR Result</span></h1>
+    </div>
+
+    <div id="message-container">
+        <div class="flash">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3>{{ message }}</h3>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    {% if ocr_text %}
+        <div class="result-box">
+            <div class="result-content" style="text-align: justify;">
+                {{ ocr_text }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="button-container">
+        <a href="/" class="button">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
